@@ -93,7 +93,7 @@ function dishQuantityProperty(req, res, next){
     const {data: {dishes} = {}} = req.body;
     const quantityMissing = dishes.find((dish) => !dish.quantity); 
     if(quantityMissing){
-        quantityMissing.index = dishes.indexOf(missingQuantity)
+        quantityMissing.index = dishes.indexOf(quantityMissing)
     next({
         status: 400,
         message: `Dish ${quantityMissing.index} must have a quantity that is an integer greater than 0.`
@@ -126,6 +126,7 @@ function dishQuantityPropertyNotInteger(req, res, next){
             message: `Dish ${quantityNotInteger.index} must have a quantity that is an integer greater than 0.`
         })
     }
+    return next();
 }
 
 function create(req, res){
