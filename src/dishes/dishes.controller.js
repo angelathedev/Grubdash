@@ -36,6 +36,7 @@ function read(req, res, next){
 function namePropertyExists(req, res, next){
     const {data: {name} = {}} = req.body;
     if (name){
+      res.locals.name = name;
         return next()
     }
     next({
@@ -58,6 +59,7 @@ function namePropertyIsEmpty(req, res, next){
 function descriptionPropertyExists(req, res, next){
     const {data: {description} = {}} = req.body;
     if (description){
+      res.locals.description = description;
         return next()
     }
     next({
@@ -80,6 +82,7 @@ function descriptionPropertyIsEmpty(req, res, next){
 function pricePropertyExists(req, res, next){
     const {data: {price} = {}} = req.body;
     if (price){
+      res.locals.price = price;
         return next()
     }
     next({
@@ -115,6 +118,7 @@ function pricePropertyNotInteger(req, res, next){
 function imageUrlPropertyExists(req, res, next){
     const {data: {image_url} = {}} = req.body;
     if(image_url){
+      res.locals.imageUrl = image_url;
         return next();
     }
 
@@ -141,9 +145,9 @@ function create(req, res){
     const newId = new nextId();
     const newDish = {
         id: newId,
-        name: name, 
-        description: description,
-        price: price, 
+        name: res.locals.name, 
+        description: res.locals.description,
+        price: res.locals.price, 
         image_url: image_url
     }
     dishes.push(newDish);
@@ -170,7 +174,6 @@ function update(req, res){
     dish.description = description;
     dish.price = price;
     dish.image_url = image_url;
-
     res.json({data: dish})
 }
 
