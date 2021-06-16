@@ -14,6 +14,7 @@ function list(req, res){
 function deliverToPropertyExists(req, res, next){
     const {data: {deliverTo} = {}} = req.body;
     if(deliverTo){
+      res.locals.deliverTo = deliverTo;
         return next()
     }
 
@@ -37,6 +38,7 @@ function deliverToPropertyEmpty(req, res, next){
 function mobileNumberPropertyExists(req, res, next){
     const {data: {mobileNumber} = {}} = req.body
     if(mobileNumber){
+      res.locals.mobileNumber = mobileNumber;
         return next();
     }
     next({
@@ -59,6 +61,7 @@ function mobileNumberPropertyEmpty(req, res, next){
 function dishesPropertyExists(req, res, next){
     const {data: {dishes} = {}} = req.body
     if(dishes){
+      res.locals.dishes = dishes;
         return next();
     }
     next({
@@ -126,7 +129,7 @@ function dishQuantityPropertyNotInteger(req, res, next){
             message: `Dish ${quantityNotInteger.index} must have a quantity that is an integer greater than 0.`
         })
     }
-    return next();
+  return next();
 }
 
 function create(req, res){
@@ -178,6 +181,7 @@ function orderIdMatch(req, res, next) {
   function statusPropertyExists(req, res, next) {
     const {data: {status} = {}} = req.body;
     if (status) {
+      res.locals.status = status;
       return next();
     }
     next({
